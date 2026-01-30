@@ -21,7 +21,7 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		panic("Error loading .env file")
+		log.Println("No .env file loaded; using environment variables")
 	}
 
 	app := fiber.New()
