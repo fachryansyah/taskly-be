@@ -1,0 +1,11 @@
+services:
+  dracinbe:
+    image: tasklybe
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "4002:4002"
+    volumes:
+      - ./data:/data
