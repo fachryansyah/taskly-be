@@ -1,5 +1,5 @@
 services:
-  dracinbe:
+  tasklybe:
     image: tasklybe
     build: .
     restart: unless-stopped
