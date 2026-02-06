@@ -12,11 +12,11 @@ import (
 // HandleRegister godoc
 // @Summary Register user
 // @Description Register a new user
-// @Tags users
+// @Tags user
 // @Produce json
 // @Param request body RegisterUserRequest true "Register User Request"
 // @Success 200 {object} UserResponse
-// @Router /users/register [post]
+// @Router /user/register [post]
 func HandleRegister(c *fiber.Ctx) error {
 	var req RegisterUserRequest
 	if err := validation.BindAndValidate(c, &req); err != nil {
@@ -47,11 +47,11 @@ func HandleRegister(c *fiber.Ctx) error {
 // HandleLogin godoc
 // @Summary Login user
 // @Description Login a user
-// @Tags users
+// @Tags user
 // @Produce json
 // @Param request body LoginUserRequest true "Login User Request"
 // @Success 200 {object} UserResponse
-// @Router /users/login [post]
+// @Router /user/login [post]
 func HandleLogin(c *fiber.Ctx) error {
 	var req LoginUserRequest
 	if err := validation.BindAndValidate(c, &req); err != nil {
@@ -68,7 +68,7 @@ func HandleLogin(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.ResponseWrapper[User]{
 			Data:    nil,
 			Success: false,
-			Message: "Failed! Something went wrong.",
+			Message: err.Error(),
 		})
 	}
 

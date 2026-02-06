@@ -50,10 +50,10 @@ func GetTask(id string) (*Task, error) {
 	return &task, nil
 }
 
-func CreateTask(input CreateTaskRequest) (*Task, error) {
+func CreateTask(userId string, input CreateTaskRequest) (*Task, error) {
 	task := Task{
 		ID:     uuid.NewString(),
-		UserID: input.UserID,
+		UserID: userId,
 		Title:  input.Title,
 		Desc:   input.Desc,
 		Label:  input.Label,

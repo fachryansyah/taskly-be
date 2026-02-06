@@ -10,6 +10,10 @@ definitions:
         type: string
       userId:
         type: string
+    required:
+    - label
+    - title
+    - userId
     type: object
   task.EditTaskRequest:
     properties:
@@ -19,6 +23,9 @@ definitions:
         type: string
       title:
         type: string
+    required:
+    - label
+    - title
     type: object
   task.Task:
     properties:
@@ -84,7 +91,7 @@ info:
   title: Taskly API
   version: "1.0"
 paths:
-  /tasks:
+  /task:
     get:
       description: Get all tasks
       parameters:
@@ -109,7 +116,7 @@ paths:
             type: array
       summary: Get tasks
       tags:
-      - tasks
+      - task
     post:
       description: Create a new task
       parameters:
@@ -128,8 +135,8 @@ paths:
             $ref: '#/definitions/task.Task'
       summary: Create task
       tags:
-      - tasks
-  /tasks/{id}:
+      - task
+  /task/{id}:
     delete:
       description: Delete task by id
       parameters:
@@ -147,7 +154,7 @@ paths:
             $ref: '#/definitions/task.Task'
       summary: Delete task
       tags:
-      - tasks
+      - task
     get:
       description: Get task by id
       parameters:
@@ -165,7 +172,7 @@ paths:
             $ref: '#/definitions/task.Task'
       summary: Get task
       tags:
-      - tasks
+      - task
     put:
       description: Edit task by id
       parameters:
@@ -189,8 +196,8 @@ paths:
             $ref: '#/definitions/task.Task'
       summary: Edit task
       tags:
-      - tasks
-  /users/login:
+      - task
+  /user/login:
     post:
       description: Login a user
       parameters:
@@ -209,8 +216,8 @@ paths:
             $ref: '#/definitions/user.UserResponse'
       summary: Login user
       tags:
-      - users
-  /users/register:
+      - user
+  /user/register:
     post:
       description: Register a new user
       parameters:
@@ -229,5 +236,5 @@ paths:
             $ref: '#/definitions/user.UserResponse'
       summary: Register user
       tags:
-      - users
+      - user
 swagger: "2.0"

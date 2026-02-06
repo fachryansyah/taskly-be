@@ -10,6 +10,7 @@ import (
 	_ "tasklybe/docs"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -21,10 +22,12 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("No .env file loaded; using environment variables")
+		panic("Error loading .env file")
 	}
 
 	app := fiber.New()
+
+	app.Use(cors.New())
 
 	fmt.Println("Connecting to database...")
 	db.Connect()

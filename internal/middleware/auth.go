@@ -26,6 +26,7 @@ func Auth() fiber.Handler {
 			})
 		}
 
+		// Bearer 123456
 		parts := strings.SplitN(authHeader, " ", 2)
 		if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
 			return c.Status(fiber.StatusUnauthorized).JSON(dto.ResponseWrapper[any]{

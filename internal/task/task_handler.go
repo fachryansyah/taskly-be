@@ -19,10 +19,10 @@ type paginationResponse struct {
 // GetTasks godoc
 // @Summary Get tasks
 // @Description Get all tasks
-// @Tags tasks
+// @Tags task
 // @Produce json
 // @Success 200 {array} Task
-// @Router /tasks [get]
+// @Router /task [get]
 // @Param page query int true "Page number"
 // @Param limit query int true "Limit per page"
 func HandleGetTasks(c *fiber.Ctx) error {
@@ -54,10 +54,10 @@ func HandleGetTasks(c *fiber.Ctx) error {
 		Success: true,
 		Message: "Success! tasks found.",
 		Pagination: &dto.PaginationResponse{
-			Page:  page,
-			Limit: limit,
-			Total: total,
-			Pages: pages,
+			Page:      page,
+			Limit:     limit,
+			Total:     total,
+			TotalPage: pages,
 		},
 	})
 }
@@ -65,10 +65,10 @@ func HandleGetTasks(c *fiber.Ctx) error {
 // GetTask godoc
 // @Summary Get task
 // @Description Get task by id
-// @Tags tasks
+// @Tags task
 // @Produce json
 // @Success 200 {object} Task
-// @Router /tasks/{id} [get]
+// @Router /task/{id} [get]
 // @Param id path string true "Task ID"
 func HandleGetTask(c *fiber.Ctx) error {
 	id := c.Params("id")
@@ -94,10 +94,10 @@ func HandleGetTask(c *fiber.Ctx) error {
 // CreateTask godoc
 // @Summary Create task
 // @Description Create a new task
-// @Tags tasks
+// @Tags task
 // @Produce json
 // @Success 200 {object} Task
-// @Router /tasks [post]
+// @Router /task [post]
 // @Param req body CreateTaskRequest true "Create Task Request"
 func HandleCreateTask(c *fiber.Ctx) error {
 	var req CreateTaskRequest
@@ -110,7 +110,8 @@ func HandleCreateTask(c *fiber.Ctx) error {
 		})
 	}
 
-	task, err := CreateTask(req)
+	userId := c.Locals("userId").(string)
+	task, err := CreateTask(userId, req)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.ResponseWrapper[Task]{
 			Data:    nil,
@@ -129,10 +130,10 @@ func HandleCreateTask(c *fiber.Ctx) error {
 // EditTask godoc
 // @Summary Edit task
 // @Description Edit task by id
-// @Tags tasks
+// @Tags task
 // @Produce json
 // @Success 200 {object} Task
-// @Router /tasks/{id} [put]
+// @Router /task/{id} [put]
 // @Param id path string true "Task ID"
 // @Param req body EditTaskRequest true "Edit Task Request"
 func HandleEditTask(c *fiber.Ctx) error {
@@ -167,10 +168,10 @@ func HandleEditTask(c *fiber.Ctx) error {
 // DeleteTask godoc
 // @Summary Delete task
 // @Description Delete task by id
-// @Tags tasks
+// @Tags task
 // @Produce json
 // @Success 200 {object} Task
-// @Router /tasks/{id} [delete]
+// @Router /task/{id} [delete]
 // @Param id path string true "Task ID"
 func HandleDeleteTask(c *fiber.Ctx) error {
 	id := c.Params("id")

@@ -15,14 +15,14 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/tasks": {
+        "/task": {
             "get": {
                 "description": "Get all tasks",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "tasks"
+                    "task"
                 ],
                 "summary": "Get tasks",
                 "parameters": [
@@ -59,7 +59,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "tasks"
+                    "task"
                 ],
                 "summary": "Create task",
                 "parameters": [
@@ -83,14 +83,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/tasks/{id}": {
+        "/task/{id}": {
             "get": {
                 "description": "Get task by id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "tasks"
+                    "task"
                 ],
                 "summary": "Get task",
                 "parameters": [
@@ -117,7 +117,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "tasks"
+                    "task"
                 ],
                 "summary": "Edit task",
                 "parameters": [
@@ -153,7 +153,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "tasks"
+                    "task"
                 ],
                 "summary": "Delete task",
                 "parameters": [
@@ -175,14 +175,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/login": {
+        "/user/login": {
             "post": {
                 "description": "Login a user",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "user"
                 ],
                 "summary": "Login user",
                 "parameters": [
@@ -206,14 +206,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/register": {
+        "/user/register": {
             "post": {
                 "description": "Register a new user",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "user"
                 ],
                 "summary": "Register user",
                 "parameters": [
@@ -241,6 +241,11 @@ const docTemplate = `{
     "definitions": {
         "task.CreateTaskRequest": {
             "type": "object",
+            "required": [
+                "label",
+                "title",
+                "userId"
+            ],
             "properties": {
                 "desc": {
                     "type": "string"
@@ -258,6 +263,10 @@ const docTemplate = `{
         },
         "task.EditTaskRequest": {
             "type": "object",
+            "required": [
+                "label",
+                "title"
+            ],
             "properties": {
                 "desc": {
                     "type": "string"

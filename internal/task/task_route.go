@@ -1,12 +1,16 @@
 package task
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"tasklybe/internal/middleware"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func RegisterTaskRoutes(app *fiber.App) {
-	tasks := app.Group("/tasks")
-	tasks.Get("/", HandleGetTasks)
-	tasks.Get("/:id", HandleGetTask)
-	tasks.Post("/", HandleCreateTask)
-	tasks.Put("/:id", HandleEditTask)
-	tasks.Delete("/:id", HandleDeleteTask)
+	tasks := app.Group("/task")
+	tasks.Get("/", middleware.Auth(), HandleGetTasks)
+	tasks.Get("/:id", middleware.Auth(), HandleGetTask)
+	tasks.Post("/", middleware.Auth(), HandleCreateTask)
+	tasks.Put("/:id", middleware.Auth(), HandleEditTask)
+	tasks.Delete("/:id", middleware.Auth(), HandleDeleteTask)
 }
